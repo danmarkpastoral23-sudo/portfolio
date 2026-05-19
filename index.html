@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Course Accomplishment Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --purple: #7C3AED;
+      --pink:   #EC4899;
+      --blue:   #3B82F6;
+      --teal:   #14B8A6;
+      --yellow: #F59E0B;
+      --light:  #F8F7FF;
+      --dark:   #1E1B4B;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #7C3AED 0%, #EC4899 50%, #F59E0B 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: rgba(255,255,255,.08);
+      border-radius: 50%;
+      top: -200px; left: -200px;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: rgba(255,255,255,.06);
+      border-radius: 50%;
+      bottom: -150px; right: -100px;
+    }
+    .hero-badge {
+      background: rgba(255,255,255,.2);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 8px 22px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,.35);
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+      text-shadow: 0 4px 24px rgba(0,0,0,.2);
+      margin-bottom: 16px;
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg,#fff,#fde68a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      color: rgba(255,255,255,.85);
+      font-size: 1.1rem;
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+    .hero-chips {
+      display: flex; flex-wrap: wrap;
+      gap: 12px; justify-content: center;
+    }
+    .hero-chip {
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.35);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: .85rem;
+      font-weight: 500;
+      backdrop-filter: blur(4px);
+    }
+
+    /* ─── LAYOUT HELPERS ─────────────────────────────────────── */
+    .section {
+      padding: 80px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 50px;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .section-subtitle {
+      color: #6B7280;
+      margin-top: 10px;
+      font-size: .95rem;
+    }
+    .divider {
+      width: 60px; height: 4px;
+      border-radius: 4px;
+      margin: 14px auto 0;
+    }
+
+    /* ─── PERFORMANCE OVERVIEW ───────────────────────────────── */
+    .overview-bg {
+      background: linear-gradient(160deg, #EDE9FE 0%, #FDF2F8 100%);
+    }
+    .overview-bg .section-tag  { background: #DDD6FE; color: var(--purple); }
+    .overview-bg .divider      { background: linear-gradient(90deg,var(--purple),var(--pink)); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+    }
+    .stat-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(124,58,237,.1);
+      transition: transform .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .stat-card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(124,58,237,.18); }
+    .stat-card.purple::before { background: linear-gradient(90deg,var(--purple),var(--pink)); }
+    .stat-card.blue::before   { background: linear-gradient(90deg,var(--blue),var(--teal)); }
+    .stat-card.yellow::before { background: linear-gradient(90deg,var(--yellow),var(--pink)); }
+    .stat-card.teal::before   { background: linear-gradient(90deg,var(--teal),var(--blue)); }
+
+    .stat-icon { font-size: 2.4rem; margin-bottom: 10px; }
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg,var(--purple),var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-label { color: #6B7280; font-size: .85rem; margin-top: 4px; font-weight: 500; }
+
+    /* ─── ASSIGNMENTS ────────────────────────────────────────── */
+    .assignments-bg { background: #fff; }
+    .assignments-bg .section-tag { background: #DBEAFE; color: var(--blue); }
+    .assignments-bg .divider     { background: linear-gradient(90deg,var(--blue),var(--teal)); }
+
+    .assignments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 22px;
+    }
+    .assignment-card {
+      border-radius: 18px;
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform .25s, box-shadow .25s;
+      cursor: default;
+    }
+    .assignment-card:hover { transform: translateY(-5px) scale(1.01); box-shadow: 0 16px 40px rgba(0,0,0,.18); }
+    .assignment-card::after {
+      content: '';
+      position: absolute;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.12);
+      bottom: -30px; right: -30px;
+    }
+    .a1 { background: linear-gradient(135deg,#7C3AED,#A78BFA); }
+    .a2 { background: linear-gradient(135deg,#3B82F6,#60A5FA); }
+    .a3 { background: linear-gradient(135deg,#14B8A6,#34D399); }
+    .a4 { background: linear-gradient(135deg,#EC4899,#F472B6); }
+    .a5 { background: linear-gradient(135deg,#F59E0B,#FCD34D); }
+    .a6 { background: linear-gradient(135deg,#EF4444,#F87171); }
+    .a7 { background: linear-gradient(135deg,#8B5CF6,#EC4899); }
+
+    .assignment-number {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: .75;
+      margin-bottom: 8px;
+    }
+    .assignment-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+    .assignment-tag {
+      display: inline-block;
+      background: rgba(255,255,255,.22);
+      border: 1px solid rgba(255,255,255,.3);
+      font-size: .75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 50px;
+      margin-top: 12px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* ─── QUIZZES ────────────────────────────────────────────── */
+    .quizzes-bg { background: linear-gradient(160deg,#F0FDF4,#ECFDF5); }
+    .quizzes-bg .section-tag { background: #BBF7D0; color: #065F46; }
+    .quizzes-bg .divider     { background: linear-gradient(90deg,var(--teal),var(--blue)); }
+
+    .quiz-term { margin-bottom: 40px; }
+    .quiz-term-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 18px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .quiz-term-title::before {
+      content: '';
+      display: inline-block;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+    }
+    .midterm .quiz-term-title::before  { background: var(--purple); }
+    .finals  .quiz-term-title::before  { background: var(--teal); }
+
+    .quiz-cards { display: flex; flex-wrap: wrap; gap: 18px; }
+
+    .quiz-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px 28px;
+      min-width: 200px;
+      box-shadow: 0 4px 16px rgba(20,184,166,.12);
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px;
+      transition: transform .25s;
+    }
+    .quiz-card:hover { transform: translateY(-4px); }
+    .quiz-card-label { font-size: .78rem; font-weight: 600; color: #6B7280; letter-spacing: 1px; text-transform: uppercase; }
+    .quiz-score {
+      font-size: 2rem; font-weight: 800;
+    }
+    .quiz-score.midterm { color: var(--purple); }
+    .quiz-score.finals  { color: var(--teal); }
+    .quiz-score.perfect { color: var(--teal); }
+    .quiz-out { font-size: .8rem; color: #9CA3AF; }
+
+    .perfect-badge {
+      background: linear-gradient(135deg,#14B8A6,#3B82F6);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 50px;
+      letter-spacing: 1px;
+    }
+
+    /* ─── EXAMS ──────────────────────────────────────────────── */
+    .exams-bg { background: #fff; }
+    .exams-bg .section-tag { background: #FEE2E2; color: #991B1B; }
+    .exams-bg .divider     { background: linear-gradient(90deg,#EF4444,var(--pink)); }
+
+    .exam-cards { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; }
+
+    .exam-card {
+      border-radius: 22px;
+      padding: 36px 40px;
+      text-align: center;
+      color: #fff;
+      min-width: 240px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .exam-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,.2); }
+    .exam-card::before {
+      content:''; position: absolute;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      top: -60px; right: -40px;
+    }
+    .exam-midterm { background: linear-gradient(135deg,#EF4444,#F59E0B); }
+    .exam-finals  { background: linear-gradient(135deg,#8B5CF6,#EC4899); }
+
+    .exam-term { font-size: .78rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: .8; margin-bottom: 10px; }
+    .exam-score-big { font-size: 3.5rem; font-weight: 800; line-height: 1; }
+    .exam-out-of    { font-size: .9rem; opacity: .75; margin-top: 4px; }
+    .exam-pct {
+      display: inline-block;
+      background: rgba(255,255,255,.22);
+      padding: 5px 16px;
+      border-radius: 50px;
+      font-size: .8rem;
+      font-weight: 700;
+      margin-top: 14px;
+    }
+
+    /* ─── LECTURE NOTES ──────────────────────────────────────── */
+    .lectures-bg { background: linear-gradient(160deg,#EDE9FE,#FDF2F8); }
+    .lectures-bg .section-tag { background: #DDD6FE; color: var(--purple); }
+    .lectures-bg .divider     { background: linear-gradient(90deg,var(--purple),var(--pink)); }
+
+    .lectures-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .lecture-item {
+      background: #fff;
+      border-radius: 16px;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 2px 12px rgba(124,58,237,.07);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .lecture-item:hover { transform: translateX(6px); box-shadow: 0 6px 24px rgba(124,58,237,.14); }
+    .lecture-num {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .ln1 { background: linear-gradient(135deg,#7C3AED,#A78BFA); }
+    .ln2 { background: linear-gradient(135deg,#3B82F6,#60A5FA); }
+    .ln3 { background: linear-gradient(135deg,#14B8A6,#34D399); }
+    .ln4 { background: linear-gradient(135deg,#EC4899,#F472B6); }
+    .ln5 { background: linear-gradient(135deg,#F59E0B,#FCD34D); }
+    .ln6 { background: linear-gradient(135deg,#EF4444,#F87171); }
+    .ln7 { background: linear-gradient(135deg,#8B5CF6,#EC4899); }
+
+    .lecture-text {}
+    .lecture-chapter { font-size: .72rem; font-weight: 700; color: #9CA3AF; letter-spacing: 1.5px; text-transform: uppercase; }
+    .lecture-title   { font-size: .98rem; font-weight: 600; color: var(--dark); margin-top: 2px; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,.6);
+      text-align: center;
+      padding: 36px 20px;
+      font-size: .85rem;
+    }
+    footer strong { color: #fff; }
+
+    /* ─── SCROLL ANIMATION ───────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════ HERO ════ -->
+  <section class="hero">
+    <div class="hero-badge">📚 Mechanical Engineering</div>
+    <h1>Course <span>Accomplishment</span><br>Portfolio</h1>
+    <p>A comprehensive record of academic performance — assignments, quizzes, exams, and lecture notes.</p>
+    <div class="hero-chips">
+      <span class="hero-chip">📝 7 Assignments</span>
+      <span class="hero-chip">🧪 3 Quizzes</span>
+      <span class="hero-chip">📊 1 Exam Recorded</span>
+      <span class="hero-chip">📖 7 Chapters</span>
+    </div>
+  </section>
+
+  <!-- ════ PERFORMANCE OVERVIEW ════ -->
+  <div class="overview-bg">
+    <div class="section fade-in">
+      <div class="section-header">
+        <span class="section-tag">📈 At a Glance</span>
+        <h2 class="section-title">Performance Overview</h2>
+        <p class="section-subtitle">Summary of academic standing across all assessments.</p>
+        <div class="divider"></div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card purple fade-in">
+          <div class="stat-icon">📝</div>
+          <div class="stat-number">7</div>
+          <div class="stat-label">Assignments Completed</div>
+        </div>
+        <div class="stat-card blue fade-in">
+          <div class="stat-icon">🧪</div>
+          <div class="stat-number">3</div>
+          <div class="stat-label">Quizzes Taken</div>
+        </div>
+        <div class="stat-card yellow fade-in">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-number">50/50</div>
+          <div class="stat-label">Finals Quiz 1 — Perfect Score!</div>
+        </div>
+        <div class="stat-card teal fade-in">
+          <div class="stat-icon">📖</div>
+          <div class="stat-number">7</div>
+          <div class="stat-label">Lecture Chapters Covered</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ ASSIGNMENTS ════ -->
+  <div class="assignments-bg">
+    <div class="section fade-in">
+      <div class="section-header">
+        <span class="section-tag">📝 Work Submitted</span>
+        <h2 class="section-title">Assignments</h2>
+        <p class="section-subtitle">Seven assignments covering core Mechanical Engineering topics.</p>
+        <div class="divider"></div>
+      </div>
+      <div class="assignments-grid">
+        <div class="assignment-card a1 fade-in">
+          <div>
+            <div class="assignment-number">Assignment 01</div>
+            <div class="assignment-title">Mechanical Engineering Profession</div>
+          </div>
+          <span class="assignment-tag">🔧 Profession</span>
+        </div>
+        <div class="assignment-card a2 fade-in">
+          <div>
+            <div class="assignment-number">Assignment 02</div>
+            <div class="assignment-title">RA 8495</div>
+          </div>
+          <span class="assignment-tag">⚖️ Law & Regulation</span>
+        </div>
+        <div class="assignment-card a3 fade-in">
+          <div>
+            <div class="assignment-number">Assignment 03</div>
+            <div class="assignment-title">Implementing Rules &amp; Regulations (IRR)</div>
+          </div>
+          <span class="assignment-tag">📋 Policy</span>
+        </div>
+        <div class="assignment-card a4 fade-in">
+          <div>
+            <div class="assignment-number">Assignment 04</div>
+            <div class="assignment-title">Code of Ethics</div>
+          </div>
+          <span class="assignment-tag">🤝 Ethics</span>
+        </div>
+        <div class="assignment-card a5 fade-in">
+          <div>
+            <div class="assignment-number">Assignment 05</div>
+            <div class="assignment-title">Case Study 1</div>
+          </div>
+          <span class="assignment-tag">🔍 Case Study</span>
+        </div>
+        <div class="assignment-card a6 fade-in">
+          <div>
+            <div class="assignment-number">Assignment 06</div>
+            <div class="assignment-title">Case Study 2</div>
+          </div>
+          <span class="assignment-tag">🔍 Case Study</span>
+        </div>
+        <div class="assignment-card a7 fade-in">
+          <div>
+            <div class="assignment-number">Assignment 07</div>
+            <div class="assignment-title">National Building Code</div>
+          </div>
+          <span class="assignment-tag">🏗️ Building Code</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ QUIZZES ════ -->
+  <div class="quizzes-bg">
+    <div class="section fade-in">
+      <div class="section-header">
+        <span class="section-tag">🧪 Quiz Results</span>
+        <h2 class="section-title">Quizzes</h2>
+        <p class="section-subtitle">Midterm and Finals quiz scores at a glance.</p>
+        <div class="divider"></div>
+      </div>
+
+      <div class="quiz-term midterm fade-in">
+        <div class="quiz-term-title">📘 Midterm</div>
+        <div class="quiz-cards">
+          <div class="quiz-card">
+            <div class="quiz-card-label">Quiz 1</div>
+            <div class="quiz-score midterm">24</div>
+            <div class="quiz-out">out of 50</div>
+          </div>
+          <div class="quiz-card">
+            <div class="quiz-card-label">Quiz 2</div>
+            <div class="quiz-score midterm">12</div>
+            <div class="quiz-out">out of 56</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz-term finals fade-in">
+        <div class="quiz-term-title">📗 Finals</div>
+        <div class="quiz-cards">
+          <div class="quiz-card">
+            <div class="quiz-card-label">Quiz 1</div>
+            <div class="quiz-score perfect">50</div>
+            <div class="quiz-out">out of 50</div>
+            <span class="perfect-badge">🌟 PERFECT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ EXAMS ════ -->
+  <div class="exams-bg">
+    <div class="section fade-in">
+      <div class="section-header">
+        <span class="section-tag">📊 Exam Scores</span>
+        <h2 class="section-title">Examinations</h2>
+        <p class="section-subtitle">Official exam results for the semester.</p>
+        <div class="divider"></div>
+      </div>
+      <div class="exam-cards">
+        <div class="exam-card exam-midterm fade-in">
+          <div class="exam-term">📘 Midterm Exam</div>
+          <div class="exam-score-big">55</div>
+          <div class="exam-out-of">out of 70</div>
+          <span class="exam-pct">78.6% 🔥</span>
+        </div>
+        <div class="exam-card exam-finals fade-in">
+          <div class="exam-term">📗 Finals Exam</div>
+          <div class="exam-score-big">—</div>
+          <div class="exam-out-of">Score pending</div>
+          <span class="exam-pct">To be recorded</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ LECTURE NOTES ════ -->
+  <div class="lectures-bg">
+    <div class="section fade-in">
+      <div class="section-header">
+        <span class="section-tag">📖 Study Materials</span>
+        <h2 class="section-title">Lecture Notes</h2>
+        <p class="section-subtitle">Seven chapters of core Mechanical Engineering knowledge.</p>
+        <div class="divider"></div>
+      </div>
+      <div class="lectures-list">
+        <div class="lecture-item fade-in">
+          <div class="lecture-num ln1">1</div>
+          <div class="lecture-text">
+            <div class="lecture-chapter">Chapter 1</div>
+            <div class="lecture-title">The Mechanical Engineering Profession</div>
+          </div>
+        </div>
+        <div class="lecture-item fade-in">
+          <div class="lecture-num ln2">2</div>
+          <div class="lecture-text">
+            <div class="lecture-chapter">Chapter 2</div>
+            <div class="lecture-title">RA 8495 — Mechanical Engineering Act</div>
+          </div>
+        </div>
+        <div class="lecture-item fade-in">
+          <div class="lecture-num ln3">3</div>
+          <div class="lecture-text">
+            <div class="lecture-chapter">Chapter 3</div>
+            <div class="lecture-title">Implementing Rules and Regulations</div>
+          </div>
+        </div>
+        <div class="lecture-item fade-in">
+          <div class="lecture-num ln4">4</div>
+          <div class="lecture-text">
+            <div class="lecture-chapter">Chapter 4</div>
+            <div class="lecture-title">Mechanical Engineering Code of Ethics</div>
+          </div>
+        </div>
+        <div class="lecture-item fade-in">
+          <div class="lecture-num ln5">5</div>
+          <div class="lecture-text">
+            <div class="lecture-chapter">Chapter 5</div>
+            <div class="lecture-title">Local and International Codes and Standards</div>
+          </div>
+        </div>
+        <div class="lecture-item fade-in">
+          <div class="lecture-num ln6">6</div>
+          <div class="lecture-text">
+            <div class="lecture-chapter">Chapter 6</div>
+            <div class="lecture-title">Contracts and Specifications</div>
+          </div>
+        </div>
+        <div class="lecture-item fade-in">
+          <div class="lecture-num ln7">7</div>
+          <div class="lecture-text">
+            <div class="lecture-chapter">Chapter 7</div>
+            <div class="lecture-title">National Building Code of the Philippines</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ FOOTER ════ -->
+  <footer>
+    <p>🎓 <strong>Mechanical Engineering</strong> — Course Accomplishment Portfolio</p>
+    <p style="margin-top:6px;font-size:.78rem;">Designed with ✨ passion for learning</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
